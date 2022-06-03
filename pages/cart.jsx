@@ -4,6 +4,7 @@ import { CartProductTotal, CartProductTable } from "../src/styled/cart.styled";
 import { useDispatch, useSelector } from "react-redux";
 import { useRouter } from "next/router";
 import { reset } from "../redux/cartSlice";
+
 // React-PayPal integration
 import { useEffect, useState } from "react";
 import {
@@ -23,25 +24,26 @@ const CartContainer = styled.div`
 `;
 
 const Cart = () => {
-  const dispatch = useDispatch();
   const cart = useSelector((state) => state.cart);
   const [open, setOpen] = useState(false);
+  const [cash, setCash] = useState(false);
+  const amount = cart.total;
+  const currency = "USD";
+  const style = { layout: "vertical" };
+  const dispatch = useDispatch();
   const router = useRouter();
 
   const createOrder = async (data) => {
     try {
       const res = await axios.post("http://localhost:3000/api/orders", data);
-      dispatch(reset());
-      res.status === 201 && router.push(`/orders/${data._id}`);
+      if (res.status === 201) {
+        dispatch(reset());
+        router.push(`/orders/${res.data._id}`);
+      }
     } catch (err) {
       console.log(err);
     }
   };
-
-  // This values are the props in the UI
-  const amount = cart.total;
-  const currency = "USD";
-  const style = { layout: "vertical" };
 
   // Custom component to wrap the PayPalButtons and handle currency changes
   const ButtonWrapper = ({ currency, showSpinner }) => {
@@ -91,7 +93,7 @@ const Cart = () => {
                 customer: shipping.name.full_name,
                 address: shipping.address.address_line_1,
                 total: cart.total,
-                method: 1,
+                paymentMethod: 1,
               });
             });
           }}

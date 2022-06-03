@@ -1,3 +1,4 @@
+import axios from "axios";
 import Image from "next/image";
 import React from "react";
 import styled, { keyframes } from "styled-components";
@@ -89,33 +90,35 @@ const StatusUndone = styled.div`
   opacity: 0.3;
 `;
 
-const Order = () => {
+const Order = ({ order }) => {
   return (
     <OrderContainer>
       <OrderLeft>
         <Row>
           <CartProductTableId>
             <table className="productTable">
-              <tr className="trTitle">
-                <th>Order ID</th>
-                <th>Customer</th>
-                <th>Address</th>
-                <th>Total</th>
-              </tr>
-              <tr className="tr">
-                <td>
-                  <span className="id">1231784234</span>
-                </td>
-                <td>
-                  <span className="name">John Doe</span>
-                </td>
-                <td>
-                  <span className="address">Sutjeska 40, Pirot</span>
-                </td>
-                <td>
-                  <span className="total">$78.99</span>
-                </td>
-              </tr>
+              <tbody>
+                <tr className="trTitle">
+                  <th>Order ID</th>
+                  <th>Customer</th>
+                  <th>Address</th>
+                  <th>Total</th>
+                </tr>
+                <tr className="tr">
+                  <td>
+                    <span className="id">{order._id}</span>
+                  </td>
+                  <td>
+                    <span className="name">{order.customer}</span>
+                  </td>
+                  <td>
+                    <span className="address">{order.address}</span>
+                  </td>
+                  <td>
+                    <span className="total">${order.total}</span>
+                  </td>
+                </tr>
+              </tbody>
             </table>
           </CartProductTableId>
         </Row>
@@ -191,6 +194,13 @@ const Order = () => {
       </OrderRight>
     </OrderContainer>
   );
+};
+
+export const getServerSideProps = async ({ params }) => {
+  const res = await axios.get(`http://localhost:3000/api/orders/${params.id}`);
+  return {
+    props: { order: res.data },
+  };
 };
 
 export default Order;
