@@ -1,10 +1,21 @@
 import Image from "next/image";
 import tw from "twin.macro";
 import styled from "styled-components";
+import { useSelector } from "react-redux";
 
-const Container = tw.div`
-  h-24 py-0 px-12 flex items-center sticky bg-red-700
+const Container = styled.div`
+  max-width: 100vw;
+  height: 100px;
+  padding: 0 16px;
+  display: flex;
+  align-items: center;
+  position: sticky;
+  top: 0;
+  left: 0;
+  z-index: 999;
+  background-color: #ce2432;
 `;
+
 const NavbarItem = styled.div`
   flex: 1;
   display: flex;
@@ -15,6 +26,16 @@ const NavbarItem = styled.div`
   }
   &:last-child {
     justify-content: flex-end;
+  }
+
+  @media screen and (max-width: 480px) {
+    &:nth-child(2) {
+      display: none;
+    }
+
+    &:nth-child(1) {
+      flex: 3;
+    }
   }
 `;
 const CallButton = tw.button`bg-white rounded-full p-2 w-12 h-12`;
@@ -44,6 +65,8 @@ const CartCounter = tw.div`
 `;
 
 const Navbar = () => {
+  const quantity = useSelector((state) => state.cart.quantity);
+
   return (
     <Container>
       <NavbarItem>
@@ -77,7 +100,7 @@ const Navbar = () => {
       <NavbarItem>
         <Cart>
           <Image src="/img/cart.png" alt="" width={30} height={30} />
-          <CartCounter>2</CartCounter>
+          <CartCounter>{quantity}</CartCounter>
         </Cart>
       </NavbarItem>
     </Container>

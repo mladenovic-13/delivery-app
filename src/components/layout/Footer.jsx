@@ -7,6 +7,11 @@ const FooterContainer = styled.div`
   height: calc(100vh - 100px);
   background-color: #222;
   display: flex;
+
+  @media screen and (max-width: 480px) {
+    height: auto;
+    text-align: center;
+  }
 `;
 const FooterItem = styled.div`
   flex: 1;
@@ -17,11 +22,19 @@ const FooterItem = styled.div`
     padding: 50px;
     justify-content: space-between;
   }
+
+  @media screen and (max-width: 480px) {
+    &:first-child {
+      display: none;
+    }
+    flex-direction: column;
+  }
 `;
+
 const FooterCard = styled.div``;
-const CardMotto = tw.h2`text-3xl font-bold text-gray-300 w-3/12`;
-const CardTitle = tw.h1`text-xl font-bold text-yellow-600`;
-const CardText = tw.p`text-gray-200 py-3`;
+const CardMotto = tw.h2`hidden md:block text-3xl font-bold text-gray-300 w-3/12`;
+const CardTitle = tw.h1`text-3xl md:text-xl font-bold text-yellow-600`;
+const CardText = tw.p`text-2xl text-gray-200 py-3`;
 
 const Footer = () => {
   return (

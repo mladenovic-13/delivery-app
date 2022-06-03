@@ -62,4 +62,57 @@ export const CartProductTable = styled.div`
     font-size: 18px;
   }
   flex: 2;
+
+  @media only screen and (max-width: 480px) {
+    .productTable {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .trTitle {
+      display: none;
+    }
+
+    .tr {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 20px;
+    }
+
+    .imgContainer {
+      width: 35vw;
+      height: 35vw;
+    }
+    .name,
+    .total {
+      font-size: 24px;
+    }
+
+    .extras,
+    .price,
+    .quantity {
+      font-size: 22px;
+    }
+
+    .price::before {
+      content: "Price: ";
+      font-weight: 500;
+    }
+    .quantity::before {
+      content: "Quantity: ";
+      font-weight: 500;
+    }
+    .total::before {
+      content: "Total: ";
+      font-weight: 500;
+    }
+
+    .wrapper {
+      width: 100%;
+    }
+  }
 `;

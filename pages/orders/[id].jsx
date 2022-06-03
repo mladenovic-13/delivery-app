@@ -9,6 +9,9 @@ import {
 const OrderContainer = styled.div`
   padding: 50px;
   display: flex;
+  @media screen and (max-width: 480px) {
+    flex-direction: column;
+  }
 `;
 const OrderLeft = styled.div`
   flex: 2;
@@ -30,6 +33,9 @@ const Row = styled.div`
     display: flex;
     width: 60%;
     margin: auto;
+    @media screen and (max-width: 480px) {
+      width: 100%;
+    }
   }
 `;
 

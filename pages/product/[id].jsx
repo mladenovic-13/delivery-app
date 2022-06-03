@@ -3,10 +3,17 @@ import React from "react";
 import tw from "twin.macro";
 import styled from "styled-components";
 import { useState } from "react";
+import axios from "axios";
 
 const ProductContainer = styled.div`
   height: calc(100vh - 98px);
   display: flex;
+  @media screen and (max-width: 480px) {
+    height: auto;
+    text-align: center;
+    flex-direction: column;
+    margin-top: 20px;
+  }
 `;
 const Left = styled.div`
   flex: 1;
@@ -23,6 +30,10 @@ const ImgContainer = styled.div`
   width: 80%;
   height: 80%;
   position: relative;
+  @media screen and (max-width: 480px) {
+    width: 60vw;
+    height: 60vw;
+  }
 `;
 
 const PizzaName = tw.h1`text-3xl font-semibold`;
@@ -36,6 +47,10 @@ const Sizes = styled.div`
   align-items: center;
   padding-top: 5px;
   padding-bottom: 10px;
+  @media screen and (max-width: 480px) {
+    width: 100%;
+    padding: 0px 20px;
+  }
 `;
 const Size = styled.div`
   width: 50px;
@@ -69,7 +84,7 @@ const PizzaExtras = styled.div`
     font-weight: 600;
   }
   .container {
-    margin-top: 10px;
+    margin-top: 35px;
     display: flex;
     flex-direction: column;
     justify-content: space-around;
@@ -87,6 +102,24 @@ const PizzaExtras = styled.div`
     width: 16px;
     height: 16px;
     background-color: red;
+  }
+
+  @media screen and (max-width: 480px) {
+    flex-direction: column;
+    width: 60%;
+    margin: auto;
+    .option {
+      margin: 5px 0;
+      font-size: 18px;
+    }
+
+    .checkbox {
+      width: 20px;
+      height: 20px;
+    }
+    .extrasLabel {
+      text-align: left;
+    }
   }
 `;
 
@@ -110,16 +143,42 @@ const AddToCart = styled.div`
     margin-left: 10px;
   }
   margin-top: 15px;
+
+  @media screen and (max-width: 480px) {
+    .quantity,
+    .add {
+      margin-top: 20px;
+      height: 50px;
+      padding: 10px 20px;
+    }
+  }
 `;
 
-const Product = () => {
+const Product = ({ pizza }) => {
+  const [price, setPrice] = useState(pizza.prices[0]);
   const [size, setSize] = useState(0);
-  const pizza = {
-    id: 1,
-    img: "/img/pizza.png",
-    name: "VESUVIO",
-    price: [19.9, 23.9, 27.9],
-    desc: "Basic Pizza with only ham and cheese.",
+  const [extras, setExtras] = useState([]);
+  const [quatity, setQuantity] = useState(1);
+
+  const changePrice = (number) => {
+    setPrice(price + number);
+  };
+
+  const handleSize = (sizeIndex) => {
+    const diff = pizza.prices[sizeIndex] - pizza.prices[size];
+    setSize(sizeIndex);
+    changePrice(diff);
+  };
+
+  const handleExtra = (e, op) => {
+    const checked = e.target.checked;
+    if (checked) {
+      changePrice(op.price);
+      setExtras((prev) => [...prev, op]);
+    } else {
+      changePrice(-op.price);
+      setExtras(extras.filter((extra) => extra._id != op._id));
+    }
   };
 
   return (
@@ -130,67 +189,44 @@ const Product = () => {
         </ImgContainer>
       </Left>
       <Right>
-        <PizzaName>{pizza.name}</PizzaName>
-        <PizzaPrice>${pizza.price[size]}</PizzaPrice>
+        <PizzaName>{pizza.title}</PizzaName>
+        <PizzaPrice>${price}</PizzaPrice>
         <PizzaDesc>{pizza.desc}</PizzaDesc>
         <SizeLabel>Choose youre size:</SizeLabel>
         <Sizes>
-          <Size onClick={() => setSize(0)}>
+          <Size onClick={() => handleSize(0)}>
             <Image src="/img/size.png" alt="" layout="fill" />
             <SizeNum>Small</SizeNum>
           </Size>
-          <Size onClick={() => setSize(1)}>
+          <Size onClick={() => handleSize(1)}>
             <Image src="/img/size.png" alt="" layout="fill" />
             <SizeNum>Medium</SizeNum>
           </Size>
-          <Size onClick={() => setSize(2)}>
+          <Size onClick={() => handleSize(2)}>
             <Image src="/img/size.png" alt="" layout="fill" />
             <SizeNum>Large</SizeNum>
           </Size>
         </Sizes>
         <PizzaExtras>
-          <h3>Choose extras:</h3>
           <div className="container">
-            <div className="option">
-              <input
-                type="checkbox"
-                name="double"
-                id="double"
-                className="checkbox"
-              />
-              <label htmlFor="double">Double Ingredients</label>
-            </div>
-            <div className="option">
-              <input
-                type="checkbox"
-                name="extracheese"
-                id="extracheese"
-                className="checkbox"
-              />
-              <label htmlFor="extracheese">Extra Cheese</label>
-            </div>
-            <div className="option">
-              <input
-                type="checkbox"
-                name="extraham"
-                id="extraham"
-                className="checkbox"
-              />
-              <label htmlFor="extraham">Extra Ham</label>
-            </div>
-            <div className="option">
-              <input
-                type="checkbox"
-                name="extraolives"
-                id="extraolives"
-                className="checkbox"
-              />
-              <label htmlFor="extraolives">Extra Olives</label>
-            </div>
+            <h3 className="extrasLabel">Choose extras:</h3>
+            {pizza.extraOptions.map((op) => (
+              <div key={op._id} className="option">
+                <input
+                  type="checkbox"
+                  name={op.text}
+                  id={op.text}
+                  className="checkbox"
+                  onClick={(e) => handleExtra(e, op)}
+                />
+                <label htmlFor={op.text}>{op.text}</label>
+              </div>
+            ))}
           </div>
         </PizzaExtras>
         <AddToCart>
           <input
+            onChange={(e) => setQuantity(e.target.value)}
             type="number"
             name="quantity"
             id="quantity"
@@ -202,6 +238,18 @@ const Product = () => {
       </Right>
     </ProductContainer>
   );
+};
+
+export const getServerSideProps = async ({ params }) => {
+  const res = await axios.get(
+    `http://localhost:3000/api/products/${params.id}`
+  );
+
+  return {
+    props: {
+      pizza: res.data,
+    },
+  };
 };
 
 export default Product;

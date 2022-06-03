@@ -8,6 +8,9 @@ const FeaturedContainer = styled.div`
   background-color: #ce2432;
   position: relative;
   overflow: hidden;
+  @media screen and (max-width: 480px) {
+    height: 50vh;
+  }
 `;
 const ArrowContainer = tw.div`absolute w-24 h-24 top-0 bottom-0 m-auto cursor-pointer z-50`;
 const ImgWrapper = styled.div`

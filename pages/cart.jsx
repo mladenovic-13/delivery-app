@@ -5,6 +5,10 @@ import { CartProductTotal, CartProductTable } from "../src/styled/cart.styled";
 const CartContainer = styled.div`
   padding: 50px;
   display: flex;
+  @media only screen and (max-width: 480px) {
+    flex-direction: column;
+    padding: 20px;
+  }
 `;
 
 const Cart = () => {
