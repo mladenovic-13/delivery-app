@@ -2,6 +2,7 @@ import Image from "next/image";
 import tw from "twin.macro";
 import styled from "styled-components";
 import { useSelector } from "react-redux";
+import Link from "next/link";
 
 const Container = styled.div`
   max-width: 100vw;
@@ -98,10 +99,12 @@ const Navbar = () => {
         </MenuItems>
       </NavbarItem>
       <NavbarItem>
-        <Cart>
-          <Image src="/img/cart.png" alt="" width={30} height={30} />
-          <CartCounter>{quantity}</CartCounter>
-        </Cart>
+        <Link href="/cart" passHref>
+          <Cart>
+            <Image src="/img/cart.png" alt="" width={30} height={30} />
+            <CartCounter>{quantity}</CartCounter>
+          </Cart>
+        </Link>
       </NavbarItem>
     </Container>
   );

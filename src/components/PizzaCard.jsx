@@ -17,7 +17,7 @@ const CardDesc = tw.p`text-2xl text-gray-700`;
 const PizzaCard = ({ pizza }) => {
   return (
     <CardContainer>
-      <Link href={`/product/${pizza._id}`}>
+      <Link href={`/product/${pizza._id}`} passHref>
         <Image src={pizza.img} alt="" width={500} height={500} />
       </Link>
       <CardTitle>{pizza.title}</CardTitle>

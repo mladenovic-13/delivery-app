@@ -1,6 +1,7 @@
 import Image from "next/image";
 import styled from "styled-components";
 import { CartProductTotal, CartProductTable } from "../src/styled/cart.styled";
+import { useDispatch, useSelector } from "react-redux";
 
 const CartContainer = styled.div`
   padding: 50px;
@@ -12,6 +13,9 @@ const CartContainer = styled.div`
 `;
 
 const Cart = () => {
+  const dispatch = useDispatch();
+  const cart = useSelector((state) => state.cart);
+
   return (
     <CartContainer>
       <CartProductTable>
@@ -24,60 +28,42 @@ const Cart = () => {
             <th>Quantity</th>
             <th>Total</th>
           </tr>
-          <tr className="tr">
-            <td>
-              <div className="imgContainer">
-                <Image
-                  src="/img/pizza.png"
-                  layout="fill"
-                  objectFit="cover"
-                  alt=""
-                />
-              </div>
-            </td>
-            <td>
-              <span className="name">CORALZO</span>
-            </td>
-            <td>
-              <span className="extras">Double ingredient, spicy sauce</span>
-            </td>
-            <td>
-              <span className="price">$19.90</span>
-            </td>
-            <td>
-              <span className="quantity">2</span>
-            </td>
-            <td>
-              <span className="total">$39.80</span>
-            </td>
-          </tr>
-          <tr className="tr">
-            <td>
-              <div className="imgContainer">
-                <Image
-                  src="/img/pizza.png"
-                  layout="fill"
-                  objectFit="cover"
-                  alt=""
-                />
-              </div>
-            </td>
-            <td>
-              <span className="name">CORALZO</span>
-            </td>
-            <td>
-              <span className="extras">Double ingredient, spicy sauce</span>
-            </td>
-            <td>
-              <span className="price">$19.90</span>
-            </td>
-            <td>
-              <span className="quantity">2</span>
-            </td>
-            <td>
-              <span className="total">$39.80</span>
-            </td>
-          </tr>
+          {cart.products.map((item) => (
+            <tr key={item._id} className="tr">
+              <td>
+                <div className="imgContainer">
+                  <Image
+                    src={item.img}
+                    layout="fill"
+                    objectFit="cover"
+                    alt=""
+                  />
+                </div>
+              </td>
+              <td>
+                <span className="name">{item.title}</span>
+              </td>
+              <td>
+                <span className="extras">
+                  {item.extras.map((extra) => (
+                    <span key={extra._id}>
+                      {extra.text}
+                      <br />
+                    </span>
+                  ))}
+                </span>
+              </td>
+              <td>
+                <span className="price">${item.price}</span>
+              </td>
+              <td>
+                <span className="quantity">{item.quantity}</span>
+              </td>
+              <td>
+                <span className="total">${item.quantity * item.price}</span>
+              </td>
+            </tr>
+          ))}
         </table>
       </CartProductTable>
       <CartProductTotal>

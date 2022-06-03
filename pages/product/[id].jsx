@@ -4,6 +4,8 @@ import tw from "twin.macro";
 import styled from "styled-components";
 import { useState } from "react";
 import axios from "axios";
+import { useDispatch } from "react-redux";
+import { addProduct } from "../../redux/cartSlice";
 
 const ProductContainer = styled.div`
   height: calc(100vh - 98px);
@@ -158,7 +160,8 @@ const Product = ({ pizza }) => {
   const [price, setPrice] = useState(pizza.prices[0]);
   const [size, setSize] = useState(0);
   const [extras, setExtras] = useState([]);
-  const [quatity, setQuantity] = useState(1);
+  const [quantity, setQuantity] = useState(1);
+  const dispatch = useDispatch();
 
   const changePrice = (number) => {
     setPrice(price + number);
@@ -179,6 +182,10 @@ const Product = ({ pizza }) => {
       changePrice(-op.price);
       setExtras(extras.filter((extra) => extra._id != op._id));
     }
+  };
+
+  const handleClick = () => {
+    dispatch(addProduct({ ...pizza, extras, price, quantity }));
   };
 
   return (
@@ -233,7 +240,9 @@ const Product = ({ pizza }) => {
             defaultValue={1}
             className="quantity"
           />
-          <button className="add">ADD TO CART</button>
+          <button onClick={handleClick} className="add">
+            ADD TO CART
+          </button>
         </AddToCart>
       </Right>
     </ProductContainer>
