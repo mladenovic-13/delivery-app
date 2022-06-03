@@ -99,7 +99,7 @@ const Navbar = () => {
         </MenuItems>
       </NavbarItem>
       <NavbarItem>
-        <Link href="/cart" passHref>
+        <Link href="/cart">
           <Cart>
             <Image src="/img/cart.png" alt="" width={30} height={30} />
             <CartCounter>{quantity}</CartCounter>
