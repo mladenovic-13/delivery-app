@@ -1,0 +1,39 @@
+.container {
+  padding: 50px;
+  display: flex;
+}
+
+.item {
+  flex: 1;
+}
+
+.table {
+  width: 100%;
+  border-spacing: 20px;
+  text-align: left;
+}
+.products {
+  font-size: 26px;
+  font-weight: 700;
+  margin-bottom: 20px;
+}
+.button {
+  border: none;
+  color: white;
+  padding: 5px 7px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.button:first-child {
+  background-color: teal;
+  margin-right: 15px;
+}
+.button:last-child {
+  background-color: crimson;
+}
+.buttonStage {
+  padding: 5px;
+  color: white;
+  background-color: black;
+  border-radius: 5px;
+}
