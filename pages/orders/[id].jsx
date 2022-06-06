@@ -1,198 +1,115 @@
-import axios from "axios";
+import styles from "../../styles/Orders.module.css";
 import Image from "next/image";
-import React from "react";
-import styled, { keyframes } from "styled-components";
-import {
-  CartProductTotal,
-  CartProductTable,
-} from "../../src/styled/cart.styled";
-
-const OrderContainer = styled.div`
-  padding: 50px;
-  display: flex;
-  @media screen and (max-width: 480px) {
-    flex-direction: column;
-  }
-`;
-const OrderLeft = styled.div`
-  flex: 2;
-`;
-const OrderRight = styled.div`
-  flex: 1;
-`;
-const CartProductTotalPaid = styled(CartProductTotal)`
-  .button {
-    cursor: not-allowed;
-    font-weight: 700;
-    font-size: 20px;
-  }
-`;
-const Row = styled.div`
-  width: 100%;
-  &:last-child {
-    justify-content: space-between;
-    display: flex;
-    width: 60%;
-    margin: auto;
-    @media screen and (max-width: 480px) {
-      width: 100%;
-    }
-  }
-`;
-
-const CartProductTableId = styled(CartProductTable)`
-  width: 100%;
-  .productTable {
-    width: 100%;
-    text-align: left;
-    margin-bottom: 50px;
-  }
-  .name {
-  }
-  .address {
-  }
-  .customer {
-  }
-  .total {
-  }
-`;
-
-// PULSING ANIMATION
-const pulse = keyframes`
-  from {
-    opacity:0.1;
-  }
-  to{
-    opacity:0.9;
-  }
-`;
-const StatusPulse = styled.div`
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-  animation: ${pulse} 1s ease infinite alternate;
-  .checkedIcon {
-    display: none;
-  }
-`;
-const StatusDone = styled.div`
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-`;
-const StatusUndone = styled.div`
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-  .checkedIcon {
-    display: none;
-  }
-  opacity: 0.3;
-`;
+import axios from "axios";
 
 const Order = ({ order }) => {
+  const status = order.status;
+
+  const statusClass = (index) => {
+    if (index - status < 1) return styles.done;
+    if (index - status === 1) return styles.inProgress;
+    if (index - status > 1) return styles.undone;
+  };
   return (
-    <OrderContainer>
-      <OrderLeft>
-        <Row>
-          <CartProductTableId>
-            <table className="productTable">
-              <tbody>
-                <tr className="trTitle">
-                  <th>Order ID</th>
-                  <th>Customer</th>
-                  <th>Address</th>
-                  <th>Total</th>
-                </tr>
-                <tr className="tr">
-                  <td>
-                    <span className="id">{order._id}</span>
-                  </td>
-                  <td>
-                    <span className="name">{order.customer}</span>
-                  </td>
-                  <td>
-                    <span className="address">{order.address}</span>
-                  </td>
-                  <td>
-                    <span className="total">${order.total}</span>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </CartProductTableId>
-        </Row>
-        <Row>
-          <StatusDone>
-            <Image src="/img/paid.png" alt="" width={30} height={30} />
+    <div className={styles.container}>
+      <div className={styles.left}>
+        <div className={styles.row}>
+          <table className={styles.table}>
+            <tr className={styles.trTitle}>
+              <th>Order ID</th>
+              <th>Customer</th>
+              <th>Address</th>
+              <th>Total</th>
+            </tr>
+            <tr className={styles.tr}>
+              <td>
+                <span className={styles.id}>{order._id}</span>
+              </td>
+              <td>
+                <span className={styles.name}>{order.customer}</span>
+              </td>
+              <td>
+                <span className={styles.address}>{order.address}</span>
+              </td>
+              <td>
+                <span className={styles.total}>${order.total}</span>
+              </td>
+            </tr>
+          </table>
+        </div>
+        <div className={styles.row}>
+          <div className={statusClass(0)}>
+            <Image src="/img/paid.png" width={30} height={30} alt="" />
             <span>Payment</span>
-            <div className="checkedIcon">
+            <div className={styles.checkedIcon}>
               <Image
+                className={styles.checkedIcon}
                 src="/img/checked.png"
-                alt=""
                 width={20}
                 height={20}
-              ></Image>
-            </div>
-          </StatusDone>
-          <StatusPulse>
-            <Image src="/img/bake.png" alt="" width={30} height={30} />
-            <span>Preparing</span>
-            <div className="checkedIcon">
-              <Image
-                src="/img/checked.png"
                 alt=""
-                width={20}
-                height={20}
-              ></Image>
+              />
             </div>
-          </StatusPulse>
-          <StatusUndone>
-            <Image src="/img/bike.png" alt="" width={30} height={30} />
-            <span>On the way</span>
-            <div className="checkedIcon">
-              <Image
-                src="/img/checked.png"
-                alt=""
-                width={20}
-                height={20}
-              ></Image>
-            </div>
-          </StatusUndone>
-          <StatusUndone>
-            <Image src="/img/delivered.png" alt="" width={30} height={30} />
-            <span>Payment</span>
-            <div className="checkedIcon">
-              <Image
-                src="/img/checked.png"
-                alt=""
-                width={20}
-                height={20}
-              ></Image>
-            </div>
-          </StatusUndone>
-        </Row>
-      </OrderLeft>
-      <OrderRight>
-        <CartProductTotalPaid>
-          <div className="wrapper">
-            <h2 className="title">CART TOTAL</h2>
-            <div className="totalText">
-              <b className="totalTextTitle">Subtotal:</b>$79.60
-            </div>
-            <div className="totalText">
-              <b className="totalTextTitle">Discount:</b>$0.00
-            </div>
-            <div className="totalText">
-              <b className="totalTextTitle">Total:</b>$79.60
-            </div>
-            <button disabled className="button">
-              PAID
-            </button>
           </div>
-        </CartProductTotalPaid>
-      </OrderRight>
-    </OrderContainer>
+          <div className={statusClass(1)}>
+            <Image src="/img/bake.png" width={30} height={30} alt="" />
+            <span>Preparing</span>
+            <div className={styles.checkedIcon}>
+              <Image
+                className={styles.checkedIcon}
+                src="/img/checked.png"
+                width={20}
+                height={20}
+                alt=""
+              />
+            </div>
+          </div>
+          <div className={statusClass(2)}>
+            <Image src="/img/bike.png" width={30} height={30} alt="" />
+            <span>On the way</span>
+            <div className={styles.checkedIcon}>
+              <Image
+                className={styles.checkedIcon}
+                src="/img/checked.png"
+                width={20}
+                height={20}
+                alt=""
+              />
+            </div>
+          </div>
+          <div className={statusClass(3)}>
+            <Image src="/img/delivered.png" width={30} height={30} alt="" />
+            <span>Delivered</span>
+            <div className={styles.checkedIcon}>
+              <Image
+                className={styles.checkedIcon}
+                src="/img/checked.png"
+                width={20}
+                height={20}
+                alt=""
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+      <div className={styles.right}>
+        <div className={styles.wrapper}>
+          <h2 className={styles.title}>CART TOTAL</h2>
+          <div className={styles.totalText}>
+            <b className={styles.totalTextTitle}>Subtotal:</b>${order.total}
+          </div>
+          <div className={styles.totalText}>
+            <b className={styles.totalTextTitle}>Discount:</b>$0.00
+          </div>
+          <div className={styles.totalText}>
+            <b className={styles.totalTextTitle}>Total:</b>${order.total}
+          </div>
+          <button disabled className={styles.button}>
+            PAID
+          </button>
+        </div>
+      </div>
+    </div>
   );
 };
 
