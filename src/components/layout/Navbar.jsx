@@ -3,6 +3,7 @@ import tw from "twin.macro";
 import styled from "styled-components";
 import { useSelector } from "react-redux";
 import Link from "next/link";
+import Router from "next/router";
 
 const Container = styled.div`
   max-width: 100vw;
@@ -56,7 +57,7 @@ const MenuItems = tw.ul`
   flex text-white items-center
 `;
 const MenuItem = tw.li`
-  m-5 text-lg
+  m-5 text-lg cursor-pointer
 `;
 const Cart = tw.div`
   relative
@@ -93,6 +94,8 @@ const Navbar = () => {
             alt="Minut Dva Dostava Logo"
             width={160}
             height={69}
+            onClick={(e) => Router.push("/")}
+            style={{ cursor: "pointer" }}
           />
           <MenuItem>Events</MenuItem>
           <MenuItem>Contact</MenuItem>
