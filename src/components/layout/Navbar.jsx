@@ -90,10 +90,10 @@ const Navbar = () => {
           <MenuItem>Products</MenuItem>
           <MenuItem>Menu</MenuItem>
           <Image
-            src="/img/logo.png"
+            src="/img/Delivery-logo.png"
             alt="Minut Dva Dostava Logo"
-            width={160}
-            height={69}
+            width={200}
+            height={200}
             onClick={(e) => Router.push("/")}
             style={{ cursor: "pointer" }}
           />
