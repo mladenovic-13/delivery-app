@@ -32,7 +32,7 @@ export const getServerSideProps = async (ctx) => {
   }
 
   const res = await axios.get(
-    "https://delivery-fizwacwh4-mladenovic-13.vercel.app/api/products/"
+    "https://delivery-mr3tvhv6b-mladenovic-13.vercel.app/api/products/"
   );
 
   return {

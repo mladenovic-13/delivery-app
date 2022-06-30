@@ -115,7 +115,7 @@ const Order = ({ order }) => {
 
 export const getServerSideProps = async ({ params }) => {
   const res = await axios.get(
-    `https://delivery-fizwacwh4-mladenovic-13.vercel.app/api/orders/${params.id}`
+    `https://delivery-mr3tvhv6b-mladenovic-13.vercel.app/api/orders/${params.id}`
   );
   return {
     props: { order: res.data },
