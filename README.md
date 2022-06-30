@@ -1,5 +1,7 @@
 # Bergamo Pizza Delivery
 
+VERCEL DEMO: https://delivery-app-six.vercel.app
+
 ## About The Project
 
 ![Screenshot 2022-06-07 at 21.45.31.png](https://res.craft.do/user/full/9becb574-f036-dae3-8b23-ef86b3c4a5d4/97590E6A-1582-4449-BEB6-4AB01736962F_2/iB7hEmtIgxsU1q4JFY1xI6bHw4RW7xYBmTalNJCwbu0z/Screenshot%202022-06-07%20at%2021.45.31.png)
