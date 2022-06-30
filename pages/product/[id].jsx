@@ -251,7 +251,7 @@ const Product = ({ pizza }) => {
 
 export const getServerSideProps = async ({ params }) => {
   const res = await axios.get(
-    `http://localhost:3000/api/products/${params.id}`
+    `https://delivery-fizwacwh4-mladenovic-13.vercel.app/api/products/${params.id}`
   );
 
   return {
