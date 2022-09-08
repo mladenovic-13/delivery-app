@@ -43,7 +43,7 @@ const Add = ({ setClose }) => {
       };
 
       await axios.post(
-        "https://delivery-app-git-master-mladenovic-13.vercel.app/api/products",
+        "https://delivery-app-six.vercel.app/api/products",
         newProduct
       );
       setClose(true);
