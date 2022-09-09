@@ -2,16 +2,16 @@
 
 ![Screenshot 2022-06-07 at 21.45.31.png](https://res.craft.do/user/full/9becb574-f036-dae3-8b23-ef86b3c4a5d4/97590E6A-1582-4449-BEB6-4AB01736962F_2/iB7hEmtIgxsU1q4JFY1xI6bHw4RW7xYBmTalNJCwbu0z/Screenshot%202022-06-07%20at%2021.45.31.png)
 
-This is a pizza delivery application, intended for the client, but with additional options for the admin.
+This pizza delivery application is intended for the client but with additional options for the admin.
 
-## Build With
+## Built With
 
 - Next.js
 - React.js
 - Redux
 - Styled-Components
 - TailwindCSS (twin.macro)
-- MongoDB (mogoose)
+- MongoDB (mongoose)
 - Axios, Cookie, etc
 
 ## Running locally in development mode
@@ -44,7 +44,7 @@ You should run `npm run build` again any time you make changes to the site.
 
 ---
 
-On this page, the user can choose the size of the pizza, toppings, as well as the quantity. He then adds the pizza to the cart When he has finished adding, he orders it by going to the cart page.
+The user can choose the pizza size, toppings, and quantity on this page. He then adds the pizza to the cart. When he has finished adding, he orders it by going to the cart page.
 
 ![Screenshot 2022-06-07 at 21.46.39.png](https://res.craft.do/user/full/9becb574-f036-dae3-8b23-ef86b3c4a5d4/E9A9D874-2647-4009-AB70-A0F753151B10_2/m2ZzLmUlc19z6mGDGmxEWAlk540HfZUhszvpXIzVtUwz/Screenshot%202022-06-07%20at%2021.46.39.png)
 
@@ -52,9 +52,10 @@ On this page, the user can choose the size of the pizza, toppings, as well as th
 
 ---
 
-This page shows the user the products he added to cart. Payment can be made via PayPal and credit card.
+This page shows the user the products he added to the cart. Users can make payments via PayPal and credit cards.
 
-- PayPal API (You can try it with Sandbox PayPal account)
+
+- PayPal API (You can try it with a Sandbox PayPal account
 
 ![Screenshot 2022-06-07 at 21.48.00.png](https://res.craft.do/user/full/9becb574-f036-dae3-8b23-ef86b3c4a5d4/1B14C30C-C272-4560-9E71-3F3156C9F95B_2/OAH3WxI49iBQPVsFNPe4Yt0Br89yEi5M9aHBG7nwmKMz/Screenshot%202022-06-07%20at%2021.48.00.png)
 
@@ -68,7 +69,7 @@ This page shows the user the products he added to cart. Payment can be made via 
 
 ---
 
-Through this admin panel you can control the current products, as well as change the status of the order (Preparing, On the way, Delivered)
+Through this admin panel, you can control the current products, as well as change the status of the order (Preparing, On the way, Delivered)
 
 ![Screenshot 2022-06-07 at 21.49.45.png](https://res.craft.do/user/full/9becb574-f036-dae3-8b23-ef86b3c4a5d4/983FA703-14BE-403A-97AA-9B70285EB023_2/pHccCpeufBc0RWumx5hEgOIPFBcqdiDNsvvnKxgncUsz/Screenshot%202022-06-07%20at%2021.49.45.png)
 
