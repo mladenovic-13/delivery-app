@@ -14,32 +14,6 @@ This pizza delivery application is intended for the client but with additional o
 - MongoDB (mongoose)
 - Axios, Cookie, etc
 
-## Running locally in development mode
-
-To get started, just clone the repository and run `npm install && npm run dev`:
-
-```other
-git clone https://github.com/mladenovic-13/delivery-app.git
-npm install
-npm run dev
-```
-
-Note: If you are running on Windows run install --noptional flag (i.e. `npm install --no-optional`) which will skip installing fsevents.
-
-## Building and deploying in production
-
-If you wanted to run this site in production, you should install modules then build the site with `npm run build` and run it with `npm start`:
-
-```other
-npm install
-npm run build
-npm start
-```
-
-You should run `npm run build` again any time you make changes to the site.
-
-![Screenshot 2022-06-07 at 21.46.08.png](https://res.craft.do/user/full/9becb574-f036-dae3-8b23-ef86b3c4a5d4/AC653551-01BA-4F54-8A1E-514CCF01FDF5_2/rUpTWOqLN0fy0MyVwrJBdnxw47fl56lgWyaj1yREpc4z/Screenshot%202022-06-07%20at%2021.46.08.png)
-
 # Product Page
 
 ---
